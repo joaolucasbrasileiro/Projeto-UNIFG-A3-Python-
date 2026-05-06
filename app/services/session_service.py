@@ -10,7 +10,7 @@ class SessionService:
         self.current_session = None
 
     #cria uma nova sessão de votação e chama o repository
-    def start_new_session(self, session_name, destinations):
+    def start_new_session(self, session_name: str, destinations: list[str]):
         if not session_name or not session_name.strip():
             raise ValueError("Nome da sessão inválido!")
 
@@ -32,9 +32,8 @@ class SessionService:
 
     #Finaliza a sessão setando ela como is_active False
     def finish_current_session(self):
-        session = self.get_current_session
+        session = self.get_current_session()
         session.is_active = False
 
         return session
-
 

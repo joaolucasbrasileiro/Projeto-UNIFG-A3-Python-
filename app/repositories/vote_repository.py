@@ -29,7 +29,7 @@ class VoteRepository:
         return f"{self.folder_path}/{formatted_name}.csv"
 
     # Cria o arquivo CSV da sessão com os destinos e a contagem inicial de votos.
-    def create_session_file(self, session_name, destinations):
+    def create_session_file(self, session_name: str, destinations: list[str]):
         self.ensure_folder_exists()
 
         file_path = self.get_file_path(session_name)
@@ -43,7 +43,7 @@ class VoteRepository:
                     writer.writerow([destination, 0])
 
     # Lê o CSV da sessão e retorna um dicionário no formato {destino: votos}.
-    def read_results(self, session_name):
+    def read_results(self, session_name: str) -> dict[str, int]:
         file_path = self.get_file_path(session_name)
 
         results = {}
@@ -63,7 +63,7 @@ class VoteRepository:
         return results
 
     # Regrava o CSV da sessão com os resultados atualizados.
-    def save_results(self, session_name, results):
+    def save_results(self, session_name: str, results: dict[str, int]):
         file_path = self.get_file_path(session_name)
 
         with open(file_path, mode="w", newline="", encoding="utf-8") as file:
@@ -74,7 +74,7 @@ class VoteRepository:
                 writer.writerow([destination, votes])
 
     # Incrementa um voto para o destino informado dentro da sessão.
-    def increement_vote(self, session_name, destination):
+    def increment_vote(self, session_name: str, destination: str):
         results = self.read_results(session_name)
 
         if destination not in results:

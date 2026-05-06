@@ -23,7 +23,7 @@ def main():
     show_results("Resultados iniciais:", initial_results)
 
     for destination in mocked_votes:
-        repository.increement_vote(session_name, destination)
+        repository.increment_vote(session_name, destination)
 
     final_results = repository.read_results(session_name)
     show_results("Resultados depois dos votos mockados:", final_results)
