@@ -1,32 +1,30 @@
+from app.controllers.vote_controller import VotingController
 from app.repositories.vote_repository import VoteRepository
+from app.services.question_flow_service import QuestionFlowService
+from app.services.question_service import QuestionService
+from app.services.session_service import SessionService
+from app.services.vote_service import VoteService
 
 
-def show_results(title, results):
-    print(title)
-
-    for destination, votes in results.items():
-        print(f"- {destination}: {votes} voto(s)")
-
-    print()
-
-
-def main():
+# Monta as dependências principais da aplicação e devolve o controller pronto para uso
+def build_controller():
     repository = VoteRepository()
+    session_service = SessionService(repository)
+    vote_service = VoteService(repository, session_service)
+    question_service = QuestionService()
+    question_flow_service = QuestionFlowService()
 
-    session_name = "Viagem de Ferias"
-    destinations = ["Paris", "Roma", "Tokyo"]
-    mocked_votes = ["Paris", "Paris", "Roma", "Tokyo", "Paris"]
+    return VotingController(
+        session_service,
+        vote_service,
+        question_service,
+        question_flow_service,
+    )
 
-    repository.create_session_file(session_name, destinations)
 
-    initial_results = repository.read_results(session_name)
-    show_results("Resultados iniciais:", initial_results)
-
-    for destination in mocked_votes:
-        repository.increment_vote(session_name, destination)
-
-    final_results = repository.read_results(session_name)
-    show_results("Resultados depois dos votos mockados:", final_results)
+# Ponto de entrada temporário enquanto a nova interface não é conectada.
+def main():
+    return build_controller()
 
 
 if __name__ == "__main__":
