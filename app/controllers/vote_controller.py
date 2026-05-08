@@ -39,6 +39,9 @@ class VotingController:
     def get_current_results(self):
         return self.vote_service.get_current_results()
 
+    def get_top_results(self):
+        return self.vote_service.get_top_results()
+
     # Devolve as perguntas iniciais que começam o fluxo de escolha do destino.
     def get_primary_questions(self):
         return self.question_service.get_primary_questions()

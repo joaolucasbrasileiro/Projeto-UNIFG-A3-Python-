@@ -35,3 +35,4 @@ Thumbs.db
 # Generated session data
 storage/sessions/*
 !storage/sessions/.gitkeep
+storage/mock_sessions/*
