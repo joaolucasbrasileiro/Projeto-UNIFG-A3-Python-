@@ -4,6 +4,7 @@ from app.services.question_flow_service import QuestionFlowService
 from app.services.question_service import QuestionService
 from app.services.session_service import SessionService
 from app.services.vote_service import VoteService
+from app.views.interface_app import InterfaceApp
 
 
 # Monta as dependências principais da aplicação e devolve o controller pronto para uso
@@ -24,7 +25,9 @@ def build_controller():
 
 # Ponto de entrada temporário enquanto a nova interface não é conectada.
 def main():
-    return build_controller()
+    controller = build_controller()
+    interface = InterfaceApp(controller)
+    interface.mainloop()
 
 
 if __name__ == "__main__":
